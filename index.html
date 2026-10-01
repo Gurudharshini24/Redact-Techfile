@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30 Trials Performance & Resource Analysis</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h2>📊 Benchmark Dashboard</h2>
+      </div>
+      <nav class="nav-links">
+        <a href="#overview" class="active">Overview & KPIs</a>
+        <a href="#cpu-analysis">CPU Usage</a>
+        <a href="#ram-analysis">RAM & PSS Analysis</a>
+        <a href="#leak-analysis">Delta & Memory Leak</a>
+        <a href="#data-table">Data Table</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-header">
+        <h1>Performance & Resource Utilization Analysis</h1>
+        <p class="subtitle">Summary and graphical breakdown of 30 benchmark trials</p>
+      </header>
+
+      <!-- KPI Metrics Cards Section -->
+      <section id="overview" class="kpi-grid">
+        <div class="card kpi-card">
+          <span class="kpi-title">Total Trials</span>
+          <span class="kpi-value" id="kpi-total-trials">30</span>
+          <span class="kpi-sub">Data points collected</span>
+        </div>
+        <div class="card kpi-card">
+          <span class="kpi-title">Avg Peak CPU %</span>
+          <span class="kpi-value" id="kpi-avg-peak-cpu">22.00%</span>
+          <span class="kpi-sub">During Execution</span>
+        </div>
+        <div class="card kpi-card">
+          <span class="kpi-title">Avg Peak PSS RAM</span>
+          <span class="kpi-value" id="kpi-avg-peak-pss">1,022.35 MiB</span>
+          <span class="kpi-sub">During Execution</span>
+        </div>
+        <div class="card kpi-card">
+          <span class="kpi-title">Avg Memory Leak</span>
+          <span class="kpi-value" id="kpi-avg-leak">0.39 MiB</span>
+          <span class="kpi-sub">After - Before PSS</span>
+        </div>
+      </section>
+
+      <!-- Chart Grid Section -->
+      <section id="cpu-analysis" class="chart-section">
+        <div class="card chart-card full-width">
+          <h3>CPU Usage Profile Across Phases (Before, During Avg, During Peak, After)</h3>
+          <div class="chart-wrapper">
+            <canvas id="cpuChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section id="ram-analysis" class="chart-grid">
+        <div class="card chart-card">
+          <h3>RAM Memory Consumption (MiB) - Before vs. Peak vs. After</h3>
+          <div class="chart-wrapper">
+            <canvas id="ramChart"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <h3>Private RAM vs. PSS (Proportional Set Size) Comparison</h3>
+          <div class="chart-wrapper">
+            <canvas id="pssVsPrivChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section id="leak-analysis" class="chart-grid">
+        <div class="card chart-card">
+          <h3>Delta Peak PSS vs. Net Memory Leak (MiB)</h3>
+          <div class="chart-wrapper">
+            <canvas id="leakScatterChart"></canvas>
+          </div>
+        </div>
+        <div class="card chart-card">
+          <h3>Memory Leak Distribution Across 30 Trials</h3>
+          <div class="chart-wrapper">
+            <canvas id="leakBarChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Raw Data Table Section -->
+      <section id="data-table" class="table-section">
+        <div class="card table-card">
+          <div class="table-header">
+            <h3>Trial Metrics Data Table</h3>
+            <input type="text" id="tableSearch" placeholder="Search trials...">
+          </div>
+          <div class="table-wrapper">
+            <table id="trialsTable">
+              <thead>
+                <tr>
+                  <th>Trial #</th>
+                  <th>Before CPU (%)</th>
+                  <th>Peak CPU (%)</th>
+                  <th>Avg CPU (%)</th>
+                  <th>After CPU (%)</th>
+                  <th>Before PSS (MiB)</th>
+                  <th>Peak PSS (MiB)</th>
+                  <th>After PSS (MiB)</th>
+                  <th>Delta Peak PSS (MiB)</th>
+                  <th>Memory Leak (MiB)</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Data populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
